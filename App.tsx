@@ -1,118 +1,159 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {StyleSheet} from 'react-native';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Home from './components/HomeScreen';
+import About from './components/AboutScreen';
+import Resume from './components/ResumeScreen';
+// import Portfolio from './components/PortfolioScreen';
+import PortfolioStack from './components/PortfolioScreen';
+import Contact from './components/ContactScreen';
+import Settings from './components/SettingsScreen';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// // Custom Drawer Content with Image
+// function CustomDrawerContent(props) {
+//   const defaultImage = require('./assets/images/FB_IMG_1545560289018.jpg'); // Update the path if needed
+//   return (
+//     <DrawerContentScrollView {...props}>
+//       <View style={styles.header}>
+//         <Image source={defaultImage} style={styles.image} />
+//         <Text style={styles.title}>My App</Text>
+//       </View>
+//       <DrawerItemList {...props} />
+//     </DrawerContentScrollView>
+//   );
+// }
+const Drawer = createDrawerNavigator();
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+// function App() {
+//   return (
+//     <NavigationContainer>
+//       <Drawer.Navigator initialRouteName="Home">
+//         <Drawer.Screen name="Home" component={Home} />
+//         <Drawer.Screen name="About" component={About} />
+//         <Drawer.Screen name="Resume" component={Resume} />
+//         <Drawer.Screen name="Portfolio" component={PortfolioStack} />
+//         <Drawer.Screen name="Contact" component={Contact} />
+//         <Drawer.Screen name="Settings" component={Settings} />
+//       </Drawer.Navigator>
+//     </NavigationContainer>
+//   );
+// }
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName="Home"
+        // screenOptions={{
+        //   drawerStyle: styles.drawerStyle,
+        //   drawerLabelStyle: styles.drawerLabel,
+        //   drawerActiveTintColor: '#fff',
+        //   drawerInactiveTintColor: '#000',
+        //   drawerActiveBackgroundColor: '#6200ea',
+        //   drawerItemStyle: styles.drawerItem,
+        // }}>
+        screenOptions={{
+          drawerStyle: styles.drawerStyle,
+          drawerLabelStyle: {
+            fontSize: 16,
+            fontWeight: 'bold',
+            paddingLeft: 5,
+            //yellow
+            // backgroundColor: '#ffd700',
+            marginLeft: -20,
           },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          drawerActiveTintColor: '#fff',
+          drawerInactiveTintColor: '#000',
+          drawerActiveBackgroundColor: '#6200ea',
+          drawerItemStyle: styles.drawerItem,
+        }}>
+        <Drawer.Screen
+          name="Home"
+          component={Home}
+          options={{
+            drawerIcon: ({color, size}) => (
+              <Icon name="home" color={color} size={size} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="About"
+          component={About}
+          options={{
+            drawerIcon: ({color, size}) => (
+              <Icon name="account-circle" color={color} size={size} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Resume"
+          component={Resume}
+          options={{
+            drawerIcon: ({color, size}) => (
+              <Icon name="file-copy" color={color} size={size} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Portfolio"
+          component={PortfolioStack}
+          options={{
+            drawerIcon: ({color, size}) => (
+              <Icon name="photo-library" color={color} size={size} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Contact"
+          component={Contact}
+          options={{
+            drawerIcon: ({color, size}) => (
+              <Icon name="email" color={color} size={size} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            drawerIcon: ({color, size}) => (
+              <Icon name="settings" color={color} size={size} />
+            ),
+          }}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  //* drawer screen styling
+  drawerStyle: {
+    backgroundColor: '#f5f5f5',
+    width: 240,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  // drawerLabel: {
+  //   fontSize: 16,
+  //   fontWeight: 'bold',
+  //   //yellow
+  //   backgroundColor: '#ffd700',
+  // },
+  drawerItem: {
+    marginVertical: 5,
+    borderRadius: 5,
+    // green
+    // backgroundColor: '#adff2f',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+
+  //* drawer screen styling
 });
 
 export default App;
